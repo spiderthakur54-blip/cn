@@ -1,28 +1,30 @@
 INF = 999
+
 def vector(n, cost):
     dist = [row[:] for row in cost]
+    
     for k in range(n):
         for i in range(n):
             for j in range(n):
                 if dist[i][k] != INF and dist[k][j] != INF:
                     if dist[i][j] > dist[i][k] + dist[k][j]:
                         dist[i][j] = dist[i][k] + dist[k][j]
+
     for i in range(n):
         print("\nRouting table for router", i)
-        print("Destination  Cost")
+        print("Destination\tCost")
         for j in range(n):
-            print(f"{j:^11}{dist[i][j]:^6}")
-    print("\nFinal Distance Matrix\n")
+            print(f"{j}\t\t{dist[i][j]}")
+    
+    print("\nFinal Distance Matrix:")
     for i in range(n):
-        print(end="")
-    print()
-    for i in range(n):
-        print(end="")
         for j in range(n):
             print(f"{dist[i][j]:^5}", end=" ")
         print()
+        
 n = int(input("Enter number of routers: "))
 print("For infinity enter 999")
+
 cost = []
 for i in range(n):
     while True:
@@ -30,4 +32,4 @@ for i in range(n):
         row = list(map(int, values))
         cost.append(row)
         break
-vector(n, cost)    
+vector(n, cost)
