@@ -1,0 +1,22 @@
+ip = input("Enter IP Address (example 192.168.1.0): ")
+subnets = int(input("Enter number of subnets required: "))
+
+bits = 0
+while (2 ** bits) < subnets:
+    bits += 1
+
+new_prefix = 24 + bits
+
+mask = [255, 255, 255, 0]
+for i in range(bits):
+    mask[3] += (1 << (7 - i))
+
+print("Subnet Mask:", mask[0], ".", mask[1], ".", mask[2], ".", mask[3], sep="")
+print("New Prefix: /", new_prefix, sep="")
+
+block_size = 256 - mask[3]
+print("Subnet Addresses:")
+
+base = ip.split('.')
+for i in range(0, 256, block_size):
+    print(base[0] + "." + base[1] + "." + base[2] + "." + str(i))
