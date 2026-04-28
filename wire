@@ -1,0 +1,29 @@
+7th
+filters:tcp,http,dns
+flowgraphs:statistics->flow graph->all flowsto tcp flows
+
+statistics:captur file proper
+
+protocol hierarchy:all info
+tcp.flags.fin==1
+
+
+
+
+Flag              Filter
+SYN               tcp.flags.syn == 1 && tcp.flags.ack == 0
+
+SYN-ACK            tcp.flags.syn == 1 && tcp.flags.ack == 1
+
+ACK                tcp.flags.ack == 1
+
+PSH               tcp.flags.push == 1
+
+
+FIN                 tcp.flags.fin == 1
+
+
+RST                tcp.flags.reset
+
+
+
