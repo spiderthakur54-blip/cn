@@ -1,0 +1,26 @@
+def leaky_bucket(packet_size, bucket_size, output_rate):
+    bucket = 0
+
+    for i in range(len(packet_size)):
+        print(f"\nIncoming packet size: {packet_size[i]}")
+
+        if bucket + packet_size[i] > bucket_size:
+            print("Packet dropped (Overflow)")
+        else:
+            bucket += packet_size[i]
+            print(f"Bucket content: {bucket}")
+
+        # Leak data
+        if bucket > 0:
+            leak = min(bucket, output_rate)
+            bucket -= leak
+            print(f"Leaked: {leak}")
+            print(f"Remaining bucket: {bucket}")
+
+# Input
+n = int(input("Enter number of packets: "))
+packet_size = list(map(int, input("Enter packet sizes: ").split()))
+bucket_size = int(input("Enter bucket size: "))
+output_rate = int(input("Enter output rate: "))
+
+leaky_bucket(packet_size, bucket_size, output_rate)
