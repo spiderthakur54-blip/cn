@@ -1,0 +1,33 @@
+import socket
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+server.bind(('localhost', 5000))
+server.listen(1)
+
+print("Server waiting for connection...")
+
+conn, addr = server.accept()
+print("Connected with", addr)
+
+msg = conn.recv(1024).decode()
+print("Client says:", msg)
+
+conn.send("Hello from server".encode())
+
+conn.close()
+server.close()
+
+
+
+import socket
+client= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+client.connect(('localhost', 5000))
+
+client.send("Hello from client".encode())
+
+msg = client.recv(1024).decode()
+print("Server says:", msg)
+
+client.close()
